@@ -1,0 +1,19 @@
+[project]
+name = "mcp-ecommerce-load-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.15.2",
+    "fastapi>=0.115.12",
+    "fastmcp>=2.3.3",
+    "mcp-ecommerce-server",
+    "mcp[cli]>=1.8.0",
+    "psycopg2-binary>=2.9.10",
+    "serper-wrapper>=0.1.1",
+    "sqlalchemy>=2.0.40",
+]
+
+[tool.uv.sources]
+mcp-ecommerce-server = { path = "../mcp_ecommerce_server" }

@@ -1,0 +1,43 @@
+@echo off
+set "root=G:\Projetos\mcp_ecommerce_load_server"
+
+REM Criação das pastas principais
+md %root%
+md %root%\app
+md %root%\app\models
+md %root%\crew_agents
+md %root%\scrapers
+md %root%\db
+md %root%\review_interface
+md %root%\utils
+
+REM Criação dos arquivos principais no root
+type nul > %root%\main.py
+type nul > %root%\requirements.txt
+type nul > %root%\database.py
+
+REM Arquivos em app\models
+type nul > %root%\app\models\product.py
+type nul > %root%\app\models\affiliate_store.py
+
+REM Crew agents
+type nul > %root%\crew_agents\discover_and_score_stores.py
+type nul > %root%\crew_agents\score_products.py
+
+REM Scrapers
+type nul > %root%\scrapers\affiliate_store_discovery.py
+type nul > %root%\scrapers\products_collector.py
+
+REM DB
+type nul > %root%\db\insert_affiliate_stores.py
+type nul > %root%\db\insert_products.py
+
+REM Review interface
+type nul > %root%\review_interface\export_batch.py
+type nul > %root%\review_interface\import_review.py
+
+REM Utils
+type nul > %root%\utils__init__.py
+
+echo Estrutura criada com sucesso em %root%!
+pause
