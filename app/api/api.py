@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from app.api.endpoints import discover_affiliate_stores
 
 api_router = APIRouter()

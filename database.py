@@ -1,6 +1,6 @@
 # database.py
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import declarative_base, sessionmaker
 
 SQLALCHEMY_DATABASE_URL = "postgresql://admin:admin@localhost:11432/mcp_db"
 

@@ -1,0 +1,17 @@
+# Task de busca de lojas candidatas
+research:
+  description: >
+    Research the best trends in affiliate market in seek of good partner stores'
+  expected_output: >
+    A plaintext list of the markets best choices for partners in affiliate market.'
+  agent: researcher
+)
+
+# Task de curadoria de lojas
+selection:
+  description: >
+    A filtered list with the top 5 Stores to work with in affiliate market.
+  expected_output: >
+    A ordered list of the top 5 companies
+  agent: curator
+)

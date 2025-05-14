@@ -8,6 +8,7 @@ dependencies = [
     "alembic>=1.15.2",
     "fastapi>=0.115.12",
     "fastmcp>=2.3.3",
+    "isort>=6.0.1",
     "mcp-ecommerce-server",
     "mcp[cli]>=1.8.0",
     "psycopg2-binary>=2.9.10",
