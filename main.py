@@ -5,6 +5,7 @@ from mcp.server.fastmcp import FastMCP
 
 from store_selection_crew import ResearchStores
 from utils.MyLLM import MyLLM
+import json
 
 # Carregar variáveis de ambiente
 load_dotenv()
@@ -19,9 +20,18 @@ web_rag_tool = WebsiteSearchTool()
 
 def main():
 
-    result = ResearchStores.store_selection_crew.kickoff(inputs={})
+    researche_stores = ResearchStores()
+
+    country: str = 'Brasil'
+    period: str = 'junho de 2024 a maio 2025'
+    niche: str = 'produtos infantís'
+
+    inputs = {"country": country, "period": period, "niche": niche }
+
+    result = researche_stores.store_selection_crew().kickoff(inputs=inputs)
     return result
 
 
 if __name__ == "__main__":
-    main()
+    pesquisa = main()
+    print(f'Pesquisa: {pesquisa}')

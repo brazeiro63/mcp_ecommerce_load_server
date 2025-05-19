@@ -1,6 +1,8 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
+from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai_tools import SerperDevTool, WebsiteSearchTool
+from typing import List
 
 from utils.MyLLM import MyLLM
 
@@ -9,15 +11,18 @@ from utils.MyLLM import MyLLM
 class ResearchStores():
     """Pesquisa Lojas de Afiliação - Crew"""
 
-    agent_config = 'config/agents.yaml'
-    task_config = 'config/tasks.yaml'
+    agents: List[BaseAgent]
+    tasks: List[Task]
+
+    agents_config = 'config/agents.yaml'
+    tasks_config = 'config/tasks.yaml'
 
     @agent
     def researcher(self) -> Agent:
         return Agent(
-            config=self.agent_config['researcher'],
+            config=self.agents_config['researcher'],
             verbose=True,
-            tools=[SerperDevTool(), WebsiteSearchTool()],
+            tools=[SerperDevTool(), WebsiteSearchTool()],  # type: ignore[index]
             llm=MyLLM.GTP4o_mini,
             allow_delegation=False,
         )
@@ -25,7 +30,7 @@ class ResearchStores():
     @agent
     def curator(self) -> Agent:
         return Agent(
-            config=self.agent_config['curator'],
+            config=self.agents_config['curator'],  # type: ignore[index]
             verbose=True,
             llm=MyLLM.GTP4o_mini,
             allow_delegation=False,
@@ -35,25 +40,19 @@ class ResearchStores():
     @task
     def research(self) -> Task:
         return Task(
-            config=self.task_config['research']
+            config=self.tasks_config['research']  # type: ignore[index]
         )
 
     def selection(self) -> Task:
         return Task(
-            config=self.task_config['selection']
+            config=self.tasks_config['selection']  # type: ignore[index]
         )
     
     @crew
     def store_selection_crew(self) -> Crew:
         return Crew(
-            # Define a crew para realização das tarefas
-            agents=[
-                self.researcher_agent, 
-                self.curator_agent
-            ],
-            tasks=[
-                self.research_task, 
-                self.selection_task
-            ],
+            agents=self.agents,
+            tasks=self.tasks,
             process=Process.sequential,
+            verbose=True
         )
