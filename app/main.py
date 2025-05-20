@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.endpoints import discover_stores
+from app.api.endpoints import discover_affiliate_stores
 from app.db.session import Base, engine
 
 # Criar as tabelas no banco de dados
@@ -25,7 +25,7 @@ app.add_middleware(
 )
 
 # Incluir os routers
-app.include_router(discover_stores.router, prefix="/api/stores", tags=["stores"])
+app.include_router(discover_affiliate_stores.router, prefix="/api/stores", tags=["stores"])
 
 @app.get("/")
 def read_root():

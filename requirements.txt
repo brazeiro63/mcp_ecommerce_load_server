@@ -1,0 +1,10 @@
+alembic>=1.15.2
+fastapi>=0.115.12
+fastmcp>=2.3.3
+isort>=6.0.1
+psycopg2-binary>=2.9.10
+serper-wrapper>=0.1.1
+sqlalchemy>=2.0.40
+crewai>=0.28.5
+python-dotenv>=1.0.0
+crewai-tools>=0.1.6
