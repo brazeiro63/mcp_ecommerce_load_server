@@ -21,3 +21,4 @@ venv/
 # Coverage reports
 .coverage
 .coverage.*
+app_logs.txt
