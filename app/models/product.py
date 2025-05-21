@@ -1,8 +1,11 @@
 # app/models/product.py
-from sqlalchemy import Column, String, Integer, Numeric, Boolean, DateTime, Text, ForeignKey
+from sqlalchemy import (Boolean, Column, DateTime, ForeignKey, Integer,
+                        Numeric, String, Text)
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+
 from app.db.session import Base
+
 
 class Product(Base):
     __tablename__ = "products"

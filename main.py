@@ -1,3 +1,5 @@
+import json
+
 from crewai import Agent, Crew, Process, Task
 from crewai_tools import SerperDevTool, WebsiteSearchTool
 from dotenv import load_dotenv
@@ -5,7 +7,6 @@ from mcp.server.fastmcp import FastMCP
 
 from store_selection_crew import ResearchStores
 from utils.MyLLM import MyLLM
-import json
 
 # Carregar variáveis de ambiente
 load_dotenv()

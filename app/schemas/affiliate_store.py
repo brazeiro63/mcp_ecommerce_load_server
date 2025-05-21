@@ -1,7 +1,9 @@
 # app/schemas/affiliate_store.py
-from typing import Dict, Optional
 from datetime import datetime
+from typing import Dict, Optional
+
 from pydantic import BaseModel, Field
+
 
 class AffiliateStoreBase(BaseModel):
     name: str

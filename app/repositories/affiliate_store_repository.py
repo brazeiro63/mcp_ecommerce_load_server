@@ -1,9 +1,11 @@
 # app/repositories/affiliate_store_repository.py
-from sqlalchemy.orm import Session
-from typing import List, Dict, Any, Optional
 import json
+from typing import Any, Dict, List, Optional
+
+from sqlalchemy.orm import Session
 
 from app.models.affiliate_store import AffiliateStore
+
 
 class AffiliateStoreRepository:
     def __init__(self, db: Session):

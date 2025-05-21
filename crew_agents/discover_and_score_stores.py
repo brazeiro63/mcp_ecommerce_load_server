@@ -3,11 +3,20 @@ Módulo para descoberta e pontuação de lojas de afiliados.
 Utiliza o framework CrewAI para automatizar o processo de pesquisa e avaliação.
 """
 
+<<<<<<< HEAD
+import json
+import os
+from typing import Any, Dict, List
+
+from crewai import Agent, Crew, Process, Task
+from crewai_tools import SerperDevTool, WebsiteSearchTool
+=======
 from crewai import Agent, Crew, Process, Task
 from crewai_tools import SerperDevTool, WebsiteSearchTool
 from typing import Dict, List, Any
 import json
 import os
+>>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
 from dotenv import load_dotenv
 
 # Carregar variáveis de ambiente
@@ -176,21 +185,48 @@ class StoreDiscoveryAgent:
         
         return stores
     
+<<<<<<< HEAD
+        
+    def _parse_selection_result(self, result) -> List[Dict[str, Any]]:
+=======
     def _parse_selection_result(self, result: str) -> List[Dict[str, Any]]:
+>>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
         """
         Processa o resultado da seleção para extrair informações estruturadas.
         
         Args:
+<<<<<<< HEAD
+            result: Resultado bruto da seleção (string ou objeto CrewOutput)
+=======
             result: Resultado bruto da seleção
+>>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
             
         Returns:
             List[Dict[str, Any]]: Lista estruturada de lojas
         """
+<<<<<<< HEAD
+        # Processar o resultado para garantir que temos uma string
+        if hasattr(result, 'raw_output'):
+            # Se for um objeto CrewOutput
+            result_text = str(result.raw_output)
+        elif hasattr(result, 'strip'):
+            # Se já for uma string
+            result_text = result
+        else:
+            # Caso seja outro tipo
+            result_text = str(result)
+        
+=======
+>>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
         # Implementação básica - em um cenário real, seria necessário um parser mais robusto
         stores = []
         
         # Tentar extrair informações do texto
+<<<<<<< HEAD
+        lines = result_text.strip().split('\n')
+=======
         lines = result.strip().split('\n')
+>>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
         current_store = {}
         
         for line in lines:
@@ -209,7 +245,11 @@ class StoreDiscoveryAgent:
             
             # Extrair URL se presente
             elif 'http' in line:
+<<<<<<< HEAD
+                url_start = line.find('http' )
+=======
                 url_start = line.find('http')
+>>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
                 url_end = line.find(' ', url_start) if ' ' in line[url_start:] else len(line)
                 current_store['url'] = line[url_start:url_end].strip()
             
@@ -226,11 +266,18 @@ class StoreDiscoveryAgent:
         
         # Se não conseguiu extrair lojas estruturadas, criar uma entrada com o texto completo
         if not stores:
+<<<<<<< HEAD
+            stores = [{"name": "Resultado não estruturado", "description": str(result_text)}]
+        
+        return stores
+
+=======
             stores = [{"name": "Resultado não estruturado", "description": result}]
         
         return stores
 
 
+>>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
 # Função principal para uso direto do módulo
 def find_and_score_stores(country: str, period: str, niche: str, llm, agents_config: Dict = None, tasks_config: Dict = None) -> List[Dict[str, Any]]:
     """
@@ -296,7 +343,11 @@ def find_and_score_stores(country: str, period: str, niche: str, llm, agents_con
 # Exemplo de uso
 if __name__ == "__main__":
     from utils.MyLLM import MyLLM
+<<<<<<< HEAD
+
+=======
     
+>>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
     # Exemplo de uso direto
     stores = find_and_score_stores(
         country="Brasil",

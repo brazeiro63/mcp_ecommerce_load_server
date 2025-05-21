@@ -1,7 +1,9 @@
 # app/schemas/product.py
 from datetime import datetime
 from typing import Optional
+
 from pydantic import BaseModel, HttpUrl
+
 
 class ProductBase(BaseModel):
     external_id: str

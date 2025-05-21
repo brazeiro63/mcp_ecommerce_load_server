@@ -1,9 +1,27 @@
 # app/main.py
+# No início do seu arquivo app/main.py
+import logging
+from logging.handlers import RotatingFileHandler
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.endpoints import discover_affiliate_stores
 from app.db.session import Base, engine
+
+# Configurar logging
+log_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+log_file = 'app_logs.txt'
+
+# Criar handler para arquivo
+file_handler = RotatingFileHandler(log_file, maxBytes=10485760, backupCount=10)
+file_handler.setFormatter(log_formatter)
+file_handler.setLevel(logging.DEBUG)
+
+# Obter o logger raiz e adicionar o handler
+root_logger = logging.getLogger()
+root_logger.addHandler(file_handler)
+root_logger.setLevel(logging.DEBUG)
 
 # Criar as tabelas no banco de dados
 Base.metadata.create_all(bind=engine)

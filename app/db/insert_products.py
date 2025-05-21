@@ -3,6 +3,18 @@ Módulo para inserção de produtos no banco de dados.
 Fornece funções para persistir dados de produtos coletados e pontuados.
 """
 
+<<<<<<< HEAD
+import json
+from datetime import datetime
+from typing import Any, Dict, List, Optional
+
+from sqlalchemy.orm import Session
+
+from app.db.session import get_db
+from app.models.affiliate_store import AffiliateStore
+from app.models.product import Product
+
+=======
 from sqlalchemy.orm import Session
 from typing import List, Dict, Any, Optional
 import json
@@ -11,6 +23,7 @@ from datetime import datetime
 from app.models.product import Product
 from app.models.affiliate_store import AffiliateStore
 from app.db.session import get_db
+>>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
 
 def insert_product(product_data: Dict[str, Any], db: Session, affiliate_store_id: Optional[int] = None) -> Product:
     """

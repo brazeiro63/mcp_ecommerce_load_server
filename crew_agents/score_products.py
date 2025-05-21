@@ -3,11 +3,20 @@ Módulo para pontuação e priorização de produtos.
 Utiliza o framework CrewAI para automatizar o processo de avaliação e ranqueamento.
 """
 
+<<<<<<< HEAD
+import json
+import os
+from typing import Any, Dict, List
+
+from crewai import Agent, Crew, Process, Task
+from crewai_tools import SerperDevTool, WebsiteSearchTool
+=======
 from crewai import Agent, Crew, Process, Task
 from crewai_tools import SerperDevTool, WebsiteSearchTool
 from typing import Dict, List, Any
 import json
 import os
+>>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
 from dotenv import load_dotenv
 
 # Carregar variáveis de ambiente
@@ -297,7 +306,11 @@ def score_products(products: List[Dict[str, Any]], llm) -> List[Dict[str, Any]]:
 # Exemplo de uso
 if __name__ == "__main__":
     from utils.MyLLM import MyLLM
+<<<<<<< HEAD
+
+=======
     
+>>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
     # Produtos de exemplo
     sample_products = [
         {

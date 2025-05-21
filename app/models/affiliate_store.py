@@ -1,6 +1,8 @@
 # app/models/affiliate_store.py
-from sqlalchemy import Boolean, Column, DateTime, Integer, JSON, String, func
+from sqlalchemy import JSON, Boolean, Column, DateTime, Integer, String, func
+
 from app.db.session import Base
+
 
 class AffiliateStore(Base):
     __tablename__ = "affiliate_stores"
