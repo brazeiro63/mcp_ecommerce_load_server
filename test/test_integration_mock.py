@@ -3,11 +3,20 @@ Script modificado para validação de integração sem dependência de API exter
 Simula o fluxo completo do pipeline para fins de teste.
 """
 
+<<<<<<< HEAD
+import json
+import os
+import sys
+from datetime import datetime
+
+
+=======
 import os
 import json
 import sys
 from datetime import datetime
 
+>>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
 def test_store_discovery_flow():
     """
     Simula o fluxo de descoberta e pontuação de lojas.
