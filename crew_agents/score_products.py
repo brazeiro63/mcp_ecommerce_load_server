@@ -10,12 +10,15 @@ from typing import Any, Dict, List
 
 from crewai import Agent, Crew, Process, Task
 from crewai_tools import SerperDevTool, WebsiteSearchTool
+
 =======
-from crewai import Agent, Crew, Process, Task
-from crewai_tools import SerperDevTool, WebsiteSearchTool
-from typing import Dict, List, Any
 import json
 import os
+from typing import Any, Dict, List
+
+from crewai import Agent, Crew, Process, Task
+from crewai_tools import SerperDevTool, WebsiteSearchTool
+
 >>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
 from dotenv import load_dotenv
 

@@ -6,13 +6,15 @@ Fornece funções para exportar produtos para formatos como CSV ou JSON.
 import csv
 import json
 import os
+
 <<<<<<< HEAD
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
 =======
-from typing import List, Dict, Any, Optional
 from datetime import datetime
+from typing import Any, Dict, List, Optional
+
 >>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
 
 def export_batch(products: List[Dict[str, Any]], 

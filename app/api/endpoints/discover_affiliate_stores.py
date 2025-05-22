@@ -1,8 +1,9 @@
 # app/api/endpoints/discover_stores.py
-import json, re
+import json
+import re
 from typing import Any, Dict, List, Union
 
-from crewai import Agent, Crew, Process, Task, CrewOutput
+from crewai import Agent, Crew, CrewOutput, Process, Task
 from crewai_tools import SerperDevTool, WebsiteSearchTool
 from dotenv import load_dotenv
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
@@ -86,6 +87,8 @@ def discover_stores(
         repo = AffiliateStoreRepository(db)
         created_stores = repo.bulk_create_from_crew_results(plain_text)
 
+        print(f"[Discover_affiliate_atores.py] CREATED STORES: {plain_text}")
+
         return {
             "status": "success",
             "raw_result": plain_text,
@@ -129,6 +132,9 @@ async def discover_stores_async(
 
             repo = AffiliateStoreRepository(db)
             created_stores = repo.bulk_create_from_crew_results(plain_text)
+            print(f"[Discover_affiliate_atores.py] CREATED STORES: {plain_text}")
+
+
             print(f"Pesquisa concluída. {len(created_stores)} lojas criadas.")
         except Exception as e:
             print(f"Erro durante a descoberta de lojas: {e}")

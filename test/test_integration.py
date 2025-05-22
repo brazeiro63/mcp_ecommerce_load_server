@@ -16,17 +16,21 @@ from crew_agents.score_products import score_products
 from review_interface.export_batch import export_for_review
 from review_interface.import_review import import_reviewed_products
 from utils.MyLLM import MyLLM
+
 =======
-import os
 import json
+import os
+
 from dotenv import load_dotenv
-from utils.MyLLM import MyLLM
-from crew_agents.discover_and_score_stores import find_and_score_stores
+
 from app.db.insert_affiliate_stores import insert_affiliate_stores
-from crew_agents.score_products import score_products
 from app.db.insert_products import insert_products
+from crew_agents.discover_and_score_stores import find_and_score_stores
+from crew_agents.score_products import score_products
 from review_interface.export_batch import export_for_review
 from review_interface.import_review import import_reviewed_products
+from utils.MyLLM import MyLLM
+
 >>>>>>> d4728ad (Melhorias e acesso ao banco de dados)
 
 # Carregar variáveis de ambiente

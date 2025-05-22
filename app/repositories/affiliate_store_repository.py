@@ -52,7 +52,9 @@ class AffiliateStoreRepository:
         
         # Parsear o texto do resultado para extrair informações relevantes
         # O formato exato dependerá da saída do CrewAI, mas vamos assumir um formato simples
+        print(f"RESULTS: {results}")
         store_entries = self._parse_crew_results(results)
+        print(f"PARSED STORES: {store_entries}")
         
         for store_data in store_entries:
             # Verificar se a loja já existe
@@ -68,60 +70,119 @@ class AffiliateStoreRepository:
                 
         return created_stores
     
+    # def _parse_crew_results(self, results: str) -> List[Dict[str, Any]]:
+    #     """
+    #     Parse os resultados do CrewAI para extrair informações das lojas.
+    #     Esta função precisa ser adaptada com base no formato específico da saída.
+    #     """
+    #     store_entries = []
+        
+    #     # Assumindo que os resultados estão em um formato de lista numerada ou com marcadores
+    #     # Vamos tentar extrair nome, plataforma e URL
+        
+    #     lines = results.strip().split("\n")
+    #     current_store = {}
+        
+    #     for line in lines:
+    #         line = line.strip()
+            
+    #         # Identificar possível início de um novo item na lista
+    #         if line.startswith("- ") or line.startswith("* ") or (line[0].isdigit() and line[1] == "."):
+    #             if current_store and "name" in current_store:
+    #                 store_entries.append(current_store)
+    #             current_store = {}
+                
+    #             # Tentar extrair o nome da loja (assumindo que está no início da linha após o marcador)
+    #             name_part = line[2:].strip() if line.startswith("- ") or line.startswith("* ") else line[line.find(".")+1:].strip()
+    #             current_store["name"] = name_part.split(" - ")[0] if " - " in name_part else name_part
+                
+    #         # Procurar por links de plataforma ou afiliação
+    #         elif "http" in line.lower():
+    #             url = line[line.find("http"):].split(" ")[0].strip()
+    #             if url.endswith("."):
+    #                 url = url[:-1]
+                    
+    #             # Tentar determinar a plataforma a partir da URL
+    #             platform = "unknown"
+    #             if "amazon" in url.lower():
+    #                 platform = "amazon"
+    #             elif "mercadolivre" in url.lower() or "mercadolibre" in url.lower():
+    #                 platform = "mercadolivre"
+    #             elif "aliexpress" in url.lower():
+    #                 platform = "aliexpress"
+    #             elif "shopee" in url.lower():
+    #                 platform = "shopee"
+    #             elif "magalu" in url.lower() or "magazineluiza" in url.lower():
+    #                 platform = "magalu"
+                
+    #             current_store["platform"] = current_store.get("platform", platform)
+    #             current_store["api_credentials"] = {"affiliate_url": url}
+        
+    #     # Adicionar o último item se existir
+    #     if current_store and "name" in current_store:
+    #         store_entries.append(current_store)
+        
+    #     # Garantir que todos os itens tenham os campos obrigatórios
+    #     return [
+    #         store for store in store_entries 
+    #         if "name" in store and "platform" in store and "api_credentials" in store
+    #     ]
+
+
     def _parse_crew_results(self, results: str) -> List[Dict[str, Any]]:
         """
-        Parse os resultados do CrewAI para extrair informações das lojas.
-        Esta função precisa ser adaptada com base no formato específico da saída.
+        Processa uma string JSON contendo uma lista de lojas com nome e URL.
+        Extrai e estrutura os dados para inserção no banco.
         """
         store_entries = []
-        
-        # Assumindo que os resultados estão em um formato de lista numerada ou com marcadores
-        # Vamos tentar extrair nome, plataforma e URL
-        
-        lines = results.strip().split("\n")
-        current_store = {}
-        
-        for line in lines:
-            line = line.strip()
-            
-            # Identificar possível início de um novo item na lista
-            if line.startswith("- ") or line.startswith("* ") or (line[0].isdigit() and line[1] == "."):
-                if current_store and "name" in current_store:
-                    store_entries.append(current_store)
-                current_store = {}
-                
-                # Tentar extrair o nome da loja (assumindo que está no início da linha após o marcador)
-                name_part = line[2:].strip() if line.startswith("- ") or line.startswith("* ") else line[line.find(".")+1:].strip()
-                current_store["name"] = name_part.split(" - ")[0] if " - " in name_part else name_part
-                
-            # Procurar por links de plataforma ou afiliação
-            elif "http" in line.lower():
-                url = line[line.find("http"):].split(" ")[0].strip()
-                if url.endswith("."):
-                    url = url[:-1]
-                    
-                # Tentar determinar a plataforma a partir da URL
-                platform = "unknown"
-                if "amazon" in url.lower():
-                    platform = "amazon"
-                elif "mercadolivre" in url.lower() or "mercadolibre" in url.lower():
-                    platform = "mercadolivre"
-                elif "aliexpress" in url.lower():
-                    platform = "aliexpress"
-                elif "shopee" in url.lower():
-                    platform = "shopee"
-                elif "magalu" in url.lower() or "magazineluiza" in url.lower():
-                    platform = "magalu"
-                
-                current_store["platform"] = current_store.get("platform", platform)
-                current_store["api_credentials"] = {"affiliate_url": url}
-        
-        # Adicionar o último item se existir
-        if current_store and "name" in current_store:
-            store_entries.append(current_store)
-        
-        # Garantir que todos os itens tenham os campos obrigatórios
-        return [
-            store for store in store_entries 
-            if "name" in store and "platform" in store and "api_credentials" in store
-        ]
+
+        try:
+            parsed = json.loads(results)
+            if not isinstance(parsed, list):
+                print("Formato inválido: esperado uma lista de objetos.")
+                return []
+        except json.JSONDecodeError:
+            print("Erro ao fazer parse do JSON.")
+            return []
+
+        for item in parsed:
+            if not isinstance(item, dict):
+                continue
+
+            name = item.get("name")
+            url = item.get("affiliate_url")
+
+            if not name or not url:
+                continue  # Ignora entradas incompletas
+
+            # Inferir plataforma
+            platform = "unknown"
+            url_lower = url.lower()
+            if "amazon" in url_lower:
+                platform = "amazon"
+            elif "mercadolivre" in url_lower or "mercadolibre" in url_lower:
+                platform = "mercadolivre"
+            elif "aliexpress" in url_lower:
+                platform = "aliexpress"
+            elif "shopee" in url_lower:
+                platform = "shopee"
+            elif "magalu" in url_lower or "magazineluiza" in url_lower:
+                platform = "magalu"
+            elif "hotmart" in url_lower:
+                platform = "hotmart"
+            elif "monetizze" in url_lower:
+                platform = "monetizze"
+            elif "eduzz" in url_lower:
+                platform = "eduzz"
+            elif "fiverr" in url_lower:
+                platform = "fiverr"
+            elif "phooto" in url_lower:
+                platform = "phooto"
+
+            store_entries.append({
+                "name": name,
+                "platform": platform,
+                "api_credentials": {"affiliate_url": url}
+            })
+
+        return store_entries

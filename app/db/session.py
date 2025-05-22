@@ -13,9 +13,11 @@ def get_db():
     db = SessionLocal()
     try:
         yield db
+        db.commit()  # <-- deve estar dentro do try após o yield
     except Exception as e:
         db.rollback()
         print(f"Error occurred: {e}")
         raise
-    else:
-        db.commit()
+    finally:
+        db.close()
+
