@@ -1,38 +1,28 @@
-import json
-
-from crewai import Agent, Crew, Process, Task
-from crewai_tools import SerperDevTool, WebsiteSearchTool
+# /main.py
+import os
 from dotenv import load_dotenv
-from mcp.server.fastmcp import FastMCP
-
 from store_selection_crew import ResearchStores
-from utils.MyLLM import MyLLM
+from product_discovery_crew import ProductDiscoveryCrew  # nova classe com o restante do fluxo
 
 # Carregar variáveis de ambiente
 load_dotenv()
 
-# Definir o modelo de linguagem
-llm = MyLLM.GTP4o_mini
-
-scraper_tool = SerperDevTool()
-scraper_tool.n_results = 20
-web_rag_tool = WebsiteSearchTool()
-
-
 def main():
+    # Parâmetros do fluxo
+    country = 'Brasil'
+    period = 'junho de 2024 a maio 2025'
+    niche = 'produtos infantís'
+    inputs = {"country": country, "period": period, "niche": niche}
 
-    researche_stores = ResearchStores()
+    # Etapa 1: Seleção de lojas
+    store_selector = ResearchStores()
+    store_result = store_selector.store_selection_crew().kickoff(inputs=inputs)
+    print(f'Lojas Selecionadas:\n{store_result}\n')
 
-    country: str = 'Brasil'
-    period: str = 'junho de 2024 a maio 2025'
-    niche: str = 'produtos infantís'
-
-    inputs = {"country": country, "period": period, "niche": niche }
-
-    result = researche_stores.store_selection_crew().kickoff(inputs=inputs)
-    return result
-
+    # Etapa 2: Inserção, identificação de produtos e scraping
+    product_crew = ProductDiscoveryCrew()
+    final_result = product_crew.run_full_discovery(inputs)
+    print(f'Resultado Final:\n{final_result}')
 
 if __name__ == "__main__":
-    pesquisa = main()
-    print(f'Pesquisa: {pesquisa}')
+    main()

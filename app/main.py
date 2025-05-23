@@ -3,11 +3,14 @@
 import logging
 from logging.handlers import RotatingFileHandler
 
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.endpoints import discover_affiliate_stores
 from app.db.session import Base, engine
+
+from store_selection_crew import ResearchStores
+from product_discovery_crew import ProductDiscoveryCrew
 
 # Configurar logging
 log_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -48,3 +51,22 @@ app.include_router(discover_affiliate_stores.router, prefix="/api/stores", tags=
 @app.get("/")
 def read_root():
     return {"message": "Bem-vindo à API de E-commerce de Afiliados"}
+
+router = APIRouter()
+
+@router.get("/run-complete-discovery")
+def run_discovery(country: str, period: str, niche: str):
+    inputs = {"country": country, "period": period, "niche": niche}
+    
+    # Etapa 1
+    store_selector = ResearchStores()
+    store_result = store_selector.store_selection_crew().kickoff(inputs=inputs)
+
+    # Etapa 2
+    product_crew = ProductDiscoveryCrew()
+    final_result = product_crew.run_full_discovery(inputs)
+
+    return {
+        "stores": store_result,
+        "products": final_result
+    }

@@ -48,7 +48,7 @@ python main.py
 
 ## Estrutura do Projeto
 
-```
+```graphql
 project_root/
 │
 ├── main.py                 # Orquestra a pipeline de povoamento
@@ -95,3 +95,41 @@ Contribuições são bem-vindas! Por favor, siga estas etapas:
 ## Licença
 
 Este projeto está licenciado sob a licença MIT - veja o arquivo LICENSE para detalhes.
+
+---
+
+## ✅ 2. Criando os Testes
+
+### 🧪 Caminho sugerido: `tests/test_db_tools.py`
+
+Crie esse arquivo com:
+
+```python
+# tests/test_db_tools.py
+from app.db.insert_affiliate_stores import insert_affiliate_stores
+from app.db.insert_products import insert_products
+
+def test_insert_affiliate_store():
+    sample_store = [{
+        "name": "Test Store",
+        "platform": "TestPlatform",
+        "active": True,
+        "api_credentials": {"token": "123abc"}
+    }]
+    result = insert_affiliate_stores(sample_store)
+    assert len(result) == 1
+    assert result[0].name == "Test Store"
+
+def test_insert_product():
+    sample_product = [{
+        "external_id": "abc123",
+        "platform": "TestPlatform",
+        "title": "Test Product",
+        "description": "A test product",
+        "price": 19.99,
+        "product_url": "http://example.com/product",
+        "category": "Testing"
+    }]
+    result = insert_products(sample_product, affiliate_store_name="Test Store")
+    assert len(result) == 1
+    assert result[0].title == "Test Product"

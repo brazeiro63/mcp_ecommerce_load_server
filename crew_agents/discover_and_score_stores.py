@@ -178,7 +178,7 @@ class StoreDiscoveryAgent:
         return stores
     
         
-    def _parse_selection_result(self, result) -> List[Dict[str, Any]]:
+    # def _parse_selection_result(self, result) -> List[Dict[str, Any]]:
     def _parse_selection_result(self, result: str) -> List[Dict[str, Any]]:
         """
         Processa o resultado da seleção para extrair informações estruturadas.

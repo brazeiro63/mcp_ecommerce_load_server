@@ -1,18 +1,42 @@
-# Task de busca de lojas candidatas
-research:
+research_affiliate_stores:
   description: >
-    Research the best trends in affiliate market in seek of good partner stores
+    Research and compile a list of online stores that offer affiliate programs with products in the {nicho} niche,
+    active during the {periodo} period within the country {pais}.
+    Use search engines, affiliate networks, and marketplaces to identify opportunities.
   expected_output: >
-    A bullet list of the best choices for partners in affiliate market, along 
-    with statistic data and store's afiliate program website url.
-  agent: researcher
+    A list of affiliate stores including name, platform, and commission program details.
 
-
-# Task de curadoria de lojas
-selection:
+curate_top_affiliate_stores:
   description: >
-    A filtered list with the top 5 Stores to work with in affiliate market.
+    Evaluate the list of discovered affiliate stores based on their commission rates and market reputation.
+    Select the top 5 most promising stores for partnership.
   expected_output: >
-    A ordered list of the top 5 companies along with store's afiliate program 
-    website url.
-  agent: curator
+    A refined list with the 5 best affiliate stores including rationale for each selection.
+
+insert_curated_stores:
+  description: >
+    Insert the list of affiliate stores approved during the curation process into the database.
+    Make sure to use the AffiliateStoreCreate schema including name, platform, active status, and api_credentials.
+  expected_output: >
+    Confirmation with the IDs of each store successfully inserted.
+
+identify_top_products:
+  description: >
+    Identify the most searched product names within the {nicho} niche during the {periodo} period.
+    Use public data such as search engine trends, marketplaces, or keyword analysis APIs.
+  expected_output: >
+    A list with the top 5 most searched product names for the given niche and period.
+
+scrape_store_products:
+  description: >
+    For each affiliate store in the database, scrape up to 100 products that match the top product names within the {nicho} niche.
+    Use the ProductScraperTool to extract data in the format required by the ProductCreate schema.
+  expected_output: >
+    A dictionary where each store ID maps to a list of up to 100 formatted product entries.
+
+insert_scraped_products:
+  description: >
+    Insert the products collected from each store into the database.
+    Validate the required fields using the ProductCreate schema before insertion.
+  expected_output: >
+    Confirmation of how many products were inserted per store.
