@@ -1,9 +1,9 @@
-from crewai_tools import tool
+from crewai.tools import tool
 from typing import List
 import requests
 from bs4 import BeautifulSoup
 
-@tool("ProductScraperTool")
+@tool("ScrapeStoreProductsTool")
 def scrape_store_products(store_url: str, product_names: List[str]) -> str:
     """
     Acessa a loja pela URL e coleta até 100 produtos relacionados aos nomes fornecidos.

@@ -9,6 +9,7 @@ wheels/
 # Virtual environments
 .venv
 .env 
+.env.*
 venv/
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints
@@ -22,3 +23,13 @@ venv/
 .coverage
 .coverage.*
 app_logs*
+
+# Logs
+*.log
+*.txt
+*.out
+*.log.*
+app_logs.txt.*
+
+# Env
+.env

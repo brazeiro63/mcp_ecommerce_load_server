@@ -24,9 +24,6 @@ database_inserter:
   backstory: >
     You are responsible for validating and persisting all structured data into the system's backend.
     You work with precision, especially when dealing with store credentials and product attributes.
-  tools:
-    - InsertAffiliateStoresTool
-    - InsertProductsTool
 
 product_trend_analyst:
   role: >
@@ -45,5 +42,3 @@ product_scraper:
   backstory: >
     You are a web crawler specialized in extracting structured data from online stores.
     You follow guidelines to ensure data consistency and relevance for affiliate business strategies.
-  tools:
-    - ProductScraperTool

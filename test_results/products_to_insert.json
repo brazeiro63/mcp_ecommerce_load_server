@@ -1,0 +1,14 @@
+[
+  {
+    "external_id": "test123",
+    "platform": "amazon",
+    "title": "Test Product",
+    "description": "A test product",
+    "price": 99.9,
+    "product_url": "https://amazon.com.br/product/test123",
+    "category": "Eletrônicos",
+    "available": true,
+    "rank": 1,
+    "score": 9.2
+  }
+]

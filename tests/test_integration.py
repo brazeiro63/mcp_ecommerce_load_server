@@ -6,12 +6,13 @@ Testa o fluxo completo do pipeline de descoberta, pontuação e armazenamento.
 import json
 import os
 
+from crewai import CrewOutput
 from dotenv import load_dotenv
 
 from app.db.insert_affiliate_stores import insert_affiliate_stores
 from app.db.insert_products import insert_products
-from crew_agents.discover_and_score_stores import find_and_score_stores
-from crew_agents.score_products import score_products
+from crews.discover_and_score_stores import find_and_score_stores
+from crews.score_products import score_products
 from review_interface.export_batch import export_for_review
 from review_interface.import_review import import_reviewed_products
 from utils.MyLLM import MyLLM
@@ -47,18 +48,23 @@ def test_store_discovery_flow():
         
         if len(stores) > 3:
             print(f"... e mais {len(stores) - 3} lojas")
-        
-        # Salvar resultado para uso posterior
+
+        stores_data = stores.raw if isinstance(stores, CrewOutput) else stores
+        if isinstance(stores_data, str):
+            stores_data = {"result": stores_data}  # opcional: encapsula em dicionário para evitar erro
+
         os.makedirs("./test_results", exist_ok=True)
+
+        # Salvar resultado para uso posterior
         with open("./test_results/discovered_stores.json", "w", encoding="utf-8") as f:
-            json.dump(stores, f, ensure_ascii=False, indent=2)
+            json.dump(stores_data, f, ensure_ascii=False, indent=2)
         
         print("Resultado salvo em ./test_results/discovered_stores.json")
-        return stores
+        assert stores
     
     except Exception as e:
         print(f"Erro ao descobrir lojas: {e}")
-        return []
+        assert []
 
 def test_store_insertion(stores):
     """
@@ -79,14 +85,14 @@ def test_store_insertion(stores):
         
         # Salvar resultado para referência
         with open("./test_results/stores_to_insert.json", "w", encoding="utf-8") as f:
-            json.dump(stores, f, ensure_ascii=False, indent=2)
+            json.dump(stores.raw if isinstance(stores, CrewOutput) else stores, f, ensure_ascii=False, indent=2)
         
         print("Lojas preparadas para inserção salvas em ./test_results/stores_to_insert.json")
-        return True
+        assert True
     
     except Exception as e:
         print(f"Erro ao inserir lojas: {e}")
-        return False
+        assert False
 
 def test_product_scoring():
     """
@@ -131,16 +137,24 @@ def test_product_scoring():
         for i, product in enumerate(scored_products, 1):
             print(f"{i}. {product.get('title', 'N/A')} - Score: {product.get('score', 'N/A')}, Rank: {product.get('rank', 'N/A')}")
         
+        if isinstance(scored_products, CrewOutput):
+            scored_products = scored_products.raw
+
+        if isinstance(scored_products, str):
+            # Opcional: envolver em estrutura JSON válida
+            scored_products = {"products": scored_products}
+
+
         # Salvar resultado para uso posterior
         with open("./test_results/scored_products.json", "w", encoding="utf-8") as f:
             json.dump(scored_products, f, ensure_ascii=False, indent=2)
-        
+
         print("Resultado salvo em ./test_results/scored_products.json")
-        return scored_products
+        assert scored_products
     
     except Exception as e:
         print(f"Erro ao pontuar produtos: {e}")
-        return []
+        assert []
 
 def test_product_insertion(products):
     """
@@ -164,11 +178,11 @@ def test_product_insertion(products):
             json.dump(products, f, ensure_ascii=False, indent=2)
         
         print("Produtos preparados para inserção salvos em ./test_results/products_to_insert.json")
-        return True
+        assert True
     
     except Exception as e:
         print(f"Erro ao inserir produtos: {e}")
-        return False
+        assert False
 
 def test_review_interface(products):
     """
@@ -220,11 +234,11 @@ def test_review_interface(products):
         approved = sum(1 for p in reviewed_products if p.get('approved') is True)
         print(f"Produtos aprovados: {approved}")
         
-        return True
+        assert True
     
     except Exception as e:
         print(f"Erro ao testar interface de revisão: {e}")
-        return False
+        assert False
 
 def run_integration_test():
     """
@@ -259,7 +273,7 @@ def run_integration_test():
     all_ok = stores and store_insertion_ok and products and product_insertion_ok and review_interface_ok
     print(f"\nResultado final: {'TODOS OS TESTES PASSARAM' if all_ok else 'ALGUNS TESTES FALHARAM'}")
     
-    return all_ok
+    assert all_ok
 
 if __name__ == "__main__":
     run_integration_test()

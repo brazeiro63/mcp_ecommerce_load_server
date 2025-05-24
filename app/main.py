@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.endpoints import discover_affiliate_stores
 from app.db.session import Base, engine
 
-from store_selection_crew import ResearchStores
+from crews.store_selection_crew import ResearchStores
 from product_discovery_crew import ProductDiscoveryCrew
 
 # Configurar logging

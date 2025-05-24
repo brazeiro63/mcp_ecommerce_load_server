@@ -8,6 +8,8 @@ import os
 import sys
 from datetime import datetime
 
+from crewai import CrewOutput
+
 def test_store_discovery_flow():
     """
     Simula o fluxo de descoberta e pontuação de lojas.
@@ -67,11 +69,23 @@ def test_store_discovery_flow():
     
     # Salvar resultado para uso posterior
     os.makedirs("./test_results", exist_ok=True)
+
+    if isinstance(stores, CrewOutput):
+        try:
+            parsed = json.loads(stores.raw)
+        except json.JSONDecodeError:
+            parsed = {"result": stores.raw}
+    else:
+        parsed = stores
+
     with open("./test_results/discovered_stores.json", "w", encoding="utf-8") as f:
-        json.dump(stores, f, ensure_ascii=False, indent=2)
-    
+        json.dump(parsed, f, ensure_ascii=False, indent=2)
+
+        
     print("Resultado salvo em ./test_results/discovered_stores.json")
-    return stores
+    assert stores
+
+
 
 def test_store_insertion(stores):
     """
@@ -92,7 +106,7 @@ def test_store_insertion(stores):
     
     print("Lojas preparadas para inserção salvas em ./test_results/stores_to_insert.json")
     print("Inserção simulada com sucesso!")
-    return True
+    assert True
 
 def test_product_scoring():
     """
@@ -146,11 +160,21 @@ def test_product_scoring():
         print(f"{i}. {product['title']} - Score: {product['score']}, Rank: {product['rank']}")
     
     # Salvar resultado para uso posterior
+    os.makedirs("./test_results", exist_ok=True)
+
+    if isinstance(scored_products, CrewOutput):
+        try:
+            parsed = json.loads(scored_products.raw)
+        except json.JSONDecodeError:
+            parsed = {"result": scored_products.raw}
+    else:
+        parsed = scored_products
+
     with open("./test_results/scored_products.json", "w", encoding="utf-8") as f:
-        json.dump(scored_products, f, ensure_ascii=False, indent=2)
+        json.dump(parsed, f, ensure_ascii=False, indent=2)
     
     print("Resultado salvo em ./test_results/scored_products.json")
-    return scored_products
+    assert scored_products
 
 def test_product_insertion(products):
     """
@@ -171,7 +195,7 @@ def test_product_insertion(products):
     
     print("Produtos preparados para inserção salvos em ./test_results/products_to_insert.json")
     print("Inserção simulada com sucesso!")
-    return True
+    assert True
 
 def test_review_interface(products):
     """
@@ -243,7 +267,7 @@ def test_review_interface(products):
     approved = sum(1 for p in reviewed_products if p.get('approved') == 'true')
     print(f"Produtos aprovados: {approved}")
     
-    return True
+    assert True
 
 def run_integration_test():
     """

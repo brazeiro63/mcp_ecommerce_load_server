@@ -3,7 +3,7 @@ import json
 import re
 from typing import Any, Dict, List, Union
 
-from crewai import Agent, Crew, CrewOutput, Process, Task
+from crewai import CrewOutput
 from crewai_tools import SerperDevTool, WebsiteSearchTool
 from dotenv import load_dotenv
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
@@ -11,11 +11,9 @@ from sqlalchemy.orm import Session
 
 from app.db.session import get_db
 from app.models.affiliate_store import AffiliateStore
-from app.repositories.affiliate_store_repository import \
-    AffiliateStoreRepository
-from app.schemas.affiliate_store import (AffiliateStoreCreate,
-                                         AffiliateStoreInDB)
-from store_selection_crew import ResearchStores
+from app.repositories.affiliate_store_repository import AffiliateStoreRepository
+from app.schemas.affiliate_store import (AffiliateStoreInDB)
+from tools.db_tools import insert_products_tool, insert_affiliate_stores_tool
 from utils.MyLLM import MyLLM
 
 # Carregar variáveis de ambiente
@@ -80,7 +78,7 @@ def discover_stores(
     try:
         inputs = {"country": country, "period": period, "niche": niche}
         
-        raw_output = ResearchStores().store_selection_crew().kickoff(inputs=inputs)
+        raw_output = discover_stores(). ResearchStores().store_selection_crew().kickoff(inputs=inputs)
         stores_data = _normalize_crew_output(raw_output)
         plain_text = _to_plain_text(stores_data)
 

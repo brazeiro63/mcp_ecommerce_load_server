@@ -1,5 +1,5 @@
 from crewai import Agent, Task, Crew, Process
-from tools.db_tools import InsertAffiliateStoresTool, InsertProductsTool
+from tools.db_tools import insert_products_tool, insert_affiliate_stores_tool
 from tools.product_scraper_tool import scrape_store_products
 from utils.MyLLM import MyLLM
 
@@ -13,7 +13,7 @@ class ProductDiscoveryCrew:
             goal="Insert validated affiliate stores and products into the system",
             backstory="You specialize in structured data persistence and work with schemas for affiliate marketing.",
             verbose=True,
-            tools=[InsertAffiliateStoresTool, InsertProductsTool],
+            tools=[insert_affiliate_stores_tool, insert_products_tool ],
             llm=MyLLM.GTP4o_mini
         )
 

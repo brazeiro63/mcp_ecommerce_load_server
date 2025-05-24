@@ -1,7 +1,7 @@
 # /main.py
 import os
 from dotenv import load_dotenv
-from store_selection_crew import ResearchStores
+from crews.store_selection_crew import ResearchStores
 from product_discovery_crew import ProductDiscoveryCrew  # nova classe com o restante do fluxo
 
 # Carregar variáveis de ambiente

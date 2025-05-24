@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Smartphone XYZ Pro",
+    "description": "Smartphone de última geração com câmera de 108MP e tela AMOLED de 6.7 polegadas",
+    "price": 2999.9,
+    "category": "Eletrônicos",
+    "brand": "XYZ",
+    "product_url": "https://example.com/products/xyz-pro",
+    "rank": 1,
+    "score": 9.5,
+    "strengths": "Ponto forte do produto 1",
+    "marketing_approach": "Abordagem de marketing para o produto 1"
+  },
+  {
+    "title": "Notebook ABC Ultra",
+    "description": "Notebook ultrafino com processador Intel i7, 16GB RAM e SSD de 512GB",
+    "price": 5499.9,
+    "category": "Informática",
+    "brand": "ABC",
+    "product_url": "https://example.com/products/abc-ultra",
+    "rank": 2,
+    "score": 9.0,
+    "strengths": "Ponto forte do produto 2",
+    "marketing_approach": "Abordagem de marketing para o produto 2"
+  },
+  {
+    "title": "Fone de Ouvido QWE Noise",
+    "description": "Fone de ouvido com cancelamento de ruído, Bluetooth 5.0 e bateria de longa duração",
+    "price": 599.9,
+    "category": "Áudio",
+    "brand": "QWE",
+    "product_url": "https://example.com/products/qwe-noise",
+    "rank": 3,
+    "score": 8.5,
+    "strengths": "Ponto forte do produto 3",
+    "marketing_approach": "Abordagem de marketing para o produto 3"
+  }
+]

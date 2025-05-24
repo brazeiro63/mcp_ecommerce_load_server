@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Amazon Test",
+    "platform": "amazon",
+    "api_credentials": {
+      "affiliate_url": "https://amazon.com.br/test"
+    }
+  }
+]
