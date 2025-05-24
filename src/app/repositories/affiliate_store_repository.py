@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Optional
 
 from sqlalchemy.orm import Session
 
-from app.models.affiliate_store import AffiliateStore
+from src.app.models.affiliate_store import AffiliateStore
 
 
 class AffiliateStoreRepository:

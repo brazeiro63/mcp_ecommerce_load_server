@@ -287,7 +287,7 @@ def score_products(products: List[Dict[str, Any]], llm) -> List[Dict[str, Any]]:
 
 # Exemplo de uso
 if __name__ == "__main__":
-    from utils.MyLLM import MyLLM
+    from src.utils.MyLLM import MyLLM
 
     # Produtos de exemplo
     sample_products = [

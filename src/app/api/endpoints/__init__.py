@@ -10,7 +10,7 @@ router = APIRouter()
 
 # Importar e incluir sub-routers específicos
 # Exemplo:
-# from app.api.endpoints import stores, products
+# from src.app.api.endpoints import stores, products
 # router.include_router(stores.router, prefix="/stores", tags=["stores"])
 # router.include_router(products.router, prefix="/products", tags=["products"])
 

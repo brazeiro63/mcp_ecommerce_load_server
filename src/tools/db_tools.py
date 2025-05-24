@@ -2,11 +2,11 @@ from typing import Dict, List
 
 from crewai.tools import tool
 
-from app.db.insert_affiliate_stores import insert_affiliate_stores
-from app.db.insert_products import insert_products
+from src.app.db.insert_affiliate_stores import insert_affiliate_stores
+from src.app.db.insert_products import insert_products
 
 
-@tool("InsertAffiliateStoresTool")
+@tool('InsertAffiliateStoresTool')
 def insert_affiliate_stores_tool(stores: List[Dict]) -> str:
     """
     Insert a list of affiliate stores into the database.
@@ -19,7 +19,7 @@ def insert_affiliate_stores_tool(stores: List[Dict]) -> str:
         return f"Failed to insert affiliate stores: {e}"
 
 
-@tool("InsertProductsTool")
+@tool('InsertProductsTool')
 def insert_products_tool(products_by_store: Dict[str, List[Dict]]) -> str:
     """
     Insert products grouped by store into the database.

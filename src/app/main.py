@@ -6,10 +6,10 @@ from logging.handlers import RotatingFileHandler
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.endpoints import discover_affiliate_stores
-from app.db.session import Base, engine
-from crews.product_discovery_crew import ProductDiscoveryCrew
-from crews.store_selection_crew import ResearchStores
+from src.app.api.endpoints import discover_affiliate_stores
+from src.app.db.session import Base, engine
+from src.crews.product_discovery_crew import ProductDiscoveryCrew
+from src.crews.store_selection_crew import ResearchStores
 
 # Configurar logging
 log_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')

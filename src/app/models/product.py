@@ -4,7 +4,7 @@ from sqlalchemy import (Boolean, Column, DateTime, ForeignKey, Integer,
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
-from app.db.session import Base
+from src.app.db.session import Base
 
 
 class Product(Base):

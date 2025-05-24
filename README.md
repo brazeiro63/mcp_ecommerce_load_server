@@ -106,8 +106,8 @@ Crie esse arquivo com:
 
 ```python
 # tests/test_db_tools.py
-from app.db.insert_affiliate_stores import insert_affiliate_stores
-from app.db.insert_products import insert_products
+from src.app.db.insert_affiliate_stores import insert_affiliate_stores
+from src.app.db.insert_products import insert_products
 
 def test_insert_affiliate_store():
     sample_store = [{

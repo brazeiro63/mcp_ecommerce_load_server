@@ -5,8 +5,8 @@ from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import SerperDevTool, WebsiteSearchTool
 
-from tools.db_tools import insert_affiliate_stores_tool, insert_products_tool
-from utils.MyLLM import MyLLM
+from src.tools.db_tools import insert_affiliate_stores_tool, insert_products_tool
+from src.utils.MyLLM import MyLLM
 
 
 @CrewBase
@@ -16,8 +16,8 @@ class ResearchStores():
     agents: List[BaseAgent]
     tasks: List[Task]
 
-    agents_config = 'config/agents.yaml'
-    tasks_config = 'config/tasks.yaml'
+    agents_config = 'src/config/agents.yaml'
+    tasks_config = 'src/config/tasks.yaml'
 
     @agent
     def researcher(self) -> Agent:
@@ -34,7 +34,7 @@ class ResearchStores():
         return Agent(
             config=self.agents_config['curator'],  # type: ignore[index]
             verbose=True,
-            tools=[insert_affiliate_stores_tool, insert_products_tool],
+            tools=[insert_affiliate_stores_tool(), insert_products_tool()],
             llm=MyLLM.GTP4o_mini,
             allow_delegation=False,
         )
@@ -43,12 +43,12 @@ class ResearchStores():
     @task
     def research(self) -> Task:
         return Task(
-            config=self.tasks_config['research']  # type: ignore[index]
+            config=self.tasks_config.get['research_affiliate_stores']  # type: ignore[index]
         )
 
     def selection(self) -> Task:
         return Task(
-            config=self.tasks_config['selection']  # type: ignore[index]
+            config=self.tasks_config['curate_top_affiliate_stores']  # type: ignore[index]
         )
     
     @crew

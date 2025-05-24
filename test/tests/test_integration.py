@@ -9,13 +9,13 @@ import os
 from crewai import CrewOutput
 from dotenv import load_dotenv
 
-from app.db.insert_affiliate_stores import insert_affiliate_stores
-from app.db.insert_products import insert_products
-from crews.discover_and_score_stores import find_and_score_stores
-from crews.score_products import score_products
+from src.app.db.insert_affiliate_stores import insert_affiliate_stores
+from src.app.db.insert_products import insert_products
+from src.crews.discover_and_score_stores import find_and_score_stores
+from src.crews.score_products import score_products
 from review_interface.export_batch import export_for_review
 from review_interface.import_review import import_reviewed_products
-from utils.MyLLM import MyLLM
+from src.utils.MyLLM import MyLLM
 
 # Carregar variáveis de ambiente
 load_dotenv()

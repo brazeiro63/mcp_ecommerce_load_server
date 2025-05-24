@@ -311,7 +311,7 @@ def find_and_score_stores(country: str, period: str, niche: str, llm, agents_con
 
 # Exemplo de uso
 if __name__ == "__main__":
-    from utils.MyLLM import MyLLM
+    from src.utils.MyLLM import MyLLM
 
     # Exemplo de uso direto
     stores = find_and_score_stores(

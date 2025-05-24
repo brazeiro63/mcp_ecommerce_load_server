@@ -7,8 +7,8 @@ from typing import Any, Dict, List, Optional
 
 from sqlalchemy.orm import Session
 
-from app.db.session import get_db
-from app.models.affiliate_store import AffiliateStore
+from src.app.db.session import get_db
+from src.app.models.affiliate_store import AffiliateStore
 
 
 def insert_affiliate_store(store_data: Dict[str, Any], db: Session) -> AffiliateStore:

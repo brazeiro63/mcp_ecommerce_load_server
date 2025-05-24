@@ -1,8 +1,8 @@
 from crewai import Agent, Crew, Process, Task
 
-from tools.db_tools import insert_affiliate_stores_tool, insert_products_tool
-from tools.product_scraper_tool import scrape_store_products
-from utils.MyLLM import MyLLM
+from src.tools.db_tools import insert_affiliate_stores_tool, insert_products_tool
+from src.tools.product_scraper_tool import scrape_store_products
+from src.utils.MyLLM import MyLLM
 
 
 class ProductDiscoveryCrew:

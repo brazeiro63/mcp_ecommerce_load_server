@@ -1,7 +1,7 @@
 # app/models/affiliate_store.py
 from sqlalchemy import JSON, Boolean, Column, DateTime, Integer, String, func
 
-from app.db.session import Base
+from src.app.db.session import Base
 
 
 class AffiliateStore(Base):

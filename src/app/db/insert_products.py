@@ -9,9 +9,9 @@ from typing import Any, Dict, List, Optional
 
 from sqlalchemy.orm import Session
 
-from app.db.session import get_db
-from app.models.affiliate_store import AffiliateStore
-from app.models.product import Product
+from src.app.db.session import get_db
+from src.app.models.affiliate_store import AffiliateStore
+from src.app.models.product import Product
 
 
 def insert_product(product_data: Dict[str, Any], db: Session, affiliate_store_id: Optional[int] = None) -> Product:
