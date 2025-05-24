@@ -1,5 +1,37 @@
 [
   {
-    "name": "Resultado bruto",
-    "url": "",
-    "raw_data": 
+    "name": "Amazon Brasil",
+    "url": "https://www.amazon.com.br/associates",
+    "description": "Programa de afiliados da Amazon Brasil com comissões de 1% a 10%",
+    "rank": 1,
+    "score": 9.5
+  },
+  {
+    "name": "Mercado Livre",
+    "url": "https://www.mercadolivre.com.br/afiliados",
+    "description": "Programa de afiliados do Mercado Livre com comissões competitivas",
+    "rank": 2,
+    "score": 9.2
+  },
+  {
+    "name": "Magazine Luiza",
+    "url": "https://www.magazinevoce.com.br/",
+    "description": "Programa de afiliados da Magazine Luiza com boas comissões",
+    "rank": 3,
+    "score": 8.7
+  },
+  {
+    "name": "Americanas",
+    "url": "https://www.americanas.com.br/afiliados",
+    "description": "Programa de afiliados das Americanas com diversas categorias",
+    "rank": 4,
+    "score": 8.5
+  },
+  {
+    "name": "Shopee",
+    "url": "https://shopee.com.br/affiliate",
+    "description": "Programa de afiliados da Shopee com foco em produtos importados",
+    "rank": 5,
+    "score": 8.3
+  }
+]

@@ -9,9 +9,6 @@ from typing import Any, Dict, List
 
 from crewai import Agent, Crew, CrewOutput, Process, Task
 from crewai_tools import SerperDevTool, WebsiteSearchTool
-
-
-
 from dotenv import load_dotenv
 
 # Carregar variáveis de ambiente
@@ -291,6 +288,7 @@ def score_products(products: List[Dict[str, Any]], llm) -> List[Dict[str, Any]]:
 # Exemplo de uso
 if __name__ == "__main__":
     from utils.MyLLM import MyLLM
+
     # Produtos de exemplo
     sample_products = [
         {

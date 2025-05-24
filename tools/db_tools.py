@@ -1,5 +1,6 @@
+from typing import Dict, List
+
 from crewai.tools import tool
-from typing import List, Dict
 
 from app.db.insert_affiliate_stores import insert_affiliate_stores
 from app.db.insert_products import insert_products

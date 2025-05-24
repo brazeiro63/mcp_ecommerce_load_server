@@ -1,7 +1,9 @@
-from crewai.tools import tool
 from typing import List
+
 import requests
 from bs4 import BeautifulSoup
+from crewai.tools import tool
+
 
 @tool("ScrapeStoreProductsTool")
 def scrape_store_products(store_url: str, product_names: List[str]) -> str:

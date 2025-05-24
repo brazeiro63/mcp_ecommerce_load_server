@@ -1,5 +1,6 @@
-from crewai import Agent, Task, Crew, Process
-from tools.db_tools import insert_products_tool, insert_affiliate_stores_tool
+from crewai import Agent, Crew, Process, Task
+
+from tools.db_tools import insert_affiliate_stores_tool, insert_products_tool
 from tools.product_scraper_tool import scrape_store_products
 from utils.MyLLM import MyLLM
 

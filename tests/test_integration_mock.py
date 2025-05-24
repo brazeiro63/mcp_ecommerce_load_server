@@ -10,6 +10,7 @@ from datetime import datetime
 
 from crewai import CrewOutput
 
+
 def test_store_discovery_flow():
     """
     Simula o fluxo de descoberta e pontuação de lojas.

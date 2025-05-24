@@ -17,7 +17,6 @@ from review_interface.export_batch import export_for_review
 from review_interface.import_review import import_reviewed_products
 from utils.MyLLM import MyLLM
 
-
 # Carregar variáveis de ambiente
 load_dotenv()
 

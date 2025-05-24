@@ -11,9 +11,10 @@ from sqlalchemy.orm import Session
 
 from app.db.session import get_db
 from app.models.affiliate_store import AffiliateStore
-from app.repositories.affiliate_store_repository import AffiliateStoreRepository
-from app.schemas.affiliate_store import (AffiliateStoreInDB)
-from tools.db_tools import insert_products_tool, insert_affiliate_stores_tool
+from app.repositories.affiliate_store_repository import \
+    AffiliateStoreRepository
+from app.schemas.affiliate_store import AffiliateStoreInDB
+from tools.db_tools import insert_affiliate_stores_tool, insert_products_tool
 from utils.MyLLM import MyLLM
 
 # Carregar variáveis de ambiente
