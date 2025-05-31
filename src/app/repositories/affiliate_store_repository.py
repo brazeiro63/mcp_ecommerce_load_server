@@ -24,6 +24,7 @@ class AffiliateStoreRepository:
         db_store = AffiliateStore(
             name=store_data["name"],
             platform=store_data["platform"],
+            url=store_data["url"],
             api_credentials=api_credentials,
             active=store_data.get("active", True)
         )
